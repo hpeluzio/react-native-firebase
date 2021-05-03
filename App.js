@@ -1,14 +1,14 @@
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {Container, Content} from 'native-base';
+import * as React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { Container, Content } from 'native-base'
 
-import {Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native'
 
-import Home from './screens/Home';
-import Auth from './screens/Auth';
+import Home from './screens/Home'
+import Auth from './screens/Auth'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 const App = () => {
   return (
@@ -21,8 +21,8 @@ const App = () => {
     // <View style={styles.backgroundStyle}>
     //   <Text style={styles.highlight}>App.js</Text>
     // </View>
-  );
-};
+  )
+}
 
 // const styles = StyleSheet.create({
 //   backgroundStyle: {
@@ -46,4 +46,4 @@ const App = () => {
 //   }
 // });
 
-export default App;
+export default App
