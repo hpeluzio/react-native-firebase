@@ -17,7 +17,7 @@ import {
 } from 'native-base'
 import { Auth, firebase } from '../Setup'
 import auth from '@react-native-firebase/auth'
-import { SignUpUser, SignInUser } from '../apiService'
+import { SignUpUser, SignInUser, SignOutUser } from '../apiService'
 
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -60,11 +60,16 @@ export default ({ navigation }) => {
       .catch((error) => {
         alert(error)
       })
-    alert(JSON.stringify(user))
   }
 
   const signOut = () => {
-    alert('signOut')
+    SignOutUser(state.emailAddress, state.password)
+      .then((data) => {
+        alert(data)
+      })
+      .catch((error) => {
+        alert(error)
+      })
   }
 
   return (
@@ -86,7 +91,7 @@ export default ({ navigation }) => {
           <Title>Authentication</Title>
         </Body>
         <Right>
-          {!user && (
+          {user && (
             <Button onPress={signOut}>
               <Icon name="log-out" />
             </Button>

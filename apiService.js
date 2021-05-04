@@ -51,3 +51,18 @@ export const SignInUser = (email, password) => {
       })
   })
 }
+
+export const SignOutUser = (email, password) => {
+  return new Promise((resolve, reject) => {
+    Auth()
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+        resolve('SignOut Sucessfully')
+      })
+      .catch((error) => {
+        // An error happened.
+        reject(error)
+      })
+  })
+}
