@@ -1,8 +1,9 @@
-import React from 'react'
-import { Auth } from './Setup'
+// import React from 'react'
+import { firebase, Auth } from './Setup'
 // import auth from '@react-native-firebase/auth'
+import database from '@react-native-firebase/database'
 
-export const SignUpUser = (email, password) => {
+export const signUpUser = (email, password) => {
   return new Promise((resolve, reject) => {
     Auth()
       .createUserWithEmailAndPassword(email, password)
@@ -22,37 +23,25 @@ export const SignUpUser = (email, password) => {
         reject(error)
       })
   })
-
-  //   return new Promise((resolve, reject) => {
-  //     Auth.createUserWithEmailAndPassword(email, password)
-  //       .then(() => {
-  //         resolve('SignUp Sucessfully')
-  //       })
-  //       .catch((error) => {
-  //         reject(error)
-  //       })
-  //   })
 }
 
-export const SignInUser = (email, password) => {
+export const signInUser = (email, password) => {
   return new Promise((resolve, reject) => {
     Auth()
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // Signed in
-        var user = userCredential.user
+        console.log('userCredential.user: ', userCredential.user)
         resolve('SignIn Sucessfully')
         // ...
       })
       .catch((error) => {
-        var errorCode = error.code
-        var errorMessage = error.message
         reject(error)
       })
   })
 }
 
-export const SignOutUser = (email, password) => {
+export const signOutUser = (email, password) => {
   return new Promise((resolve, reject) => {
     Auth()
       .signOut()
@@ -64,5 +53,64 @@ export const SignOutUser = (email, password) => {
         // An error happened.
         reject(error)
       })
+  })
+}
+
+export const submitUser = (id = null, name, position) => {
+  return new Promise((resolve, reject) => {
+    console.log('id: ', id)
+    let key
+    if (id) {
+      key = id
+    } else {
+      key = database().ref('/users').push().key
+    }
+    let dataToSave = {
+      id: key,
+      name: name,
+      position: position,
+    }
+    database()
+      .ref('/users/' + key)
+      .update(dataToSave)
+      .then((snapshot) => {
+        resolve(snapshot)
+      })
+      .catch((error) => reject(error))
+  })
+}
+
+export const queryUser = (id = null, name, position) => {
+  return new Promise((resolve, reject) => {
+    database()
+      .ref('users')
+      .orderByValue()
+      .once('value')
+      .then((res) => resolve(res))
+      .catch((error) => reject(error))
+  })
+}
+
+export const deleteAllUsersAPI = () => {
+  return new Promise((resolve, reject) => {
+    database()
+      .ref('/users')
+      .remove()
+      .then((res) => resolve(res))
+      .catch((error) => reject(error))
+  })
+}
+
+export const deleteUserAPI = (id) => {
+  return new Promise((resolve, reject) => {
+    if (!id) {
+      return reject('ID cant be null')
+    }
+
+    database()
+      .ref('/users/' + id)
+      .remove()
+      .then((res) => resolve(res))
+      .catch((error) => reject(error))
   })
 }

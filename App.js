@@ -7,6 +7,7 @@ import { Text, View, StyleSheet } from 'react-native'
 
 import Home from './screens/Home'
 import Auth from './screens/Auth'
+import RealtimeDatabase from './screens/RealtimeDatabase'
 
 const Stack = createStackNavigator()
 
@@ -16,6 +17,7 @@ const App = () => {
       <Stack.Navigator headerMode="none" initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen name="RealtimeDatabase" component={RealtimeDatabase} />
       </Stack.Navigator>
     </NavigationContainer>
     // <View style={styles.backgroundStyle}>

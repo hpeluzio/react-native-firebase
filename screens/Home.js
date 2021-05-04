@@ -20,7 +20,7 @@ export default ({ navigation }) => {
         </ListItem>
         <ListItem
           onPress={() => {
-            navigation.navigate('Auth')
+            navigation.navigate('RealtimeDatabase')
           }}
         >
           <Text>Realtime Database</Text>

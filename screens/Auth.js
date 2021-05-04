@@ -15,9 +15,9 @@ import {
   Label,
   Input,
 } from 'native-base'
-import { Auth, firebase } from '../Setup'
-import auth from '@react-native-firebase/auth'
-import { SignUpUser, SignInUser, SignOutUser } from '../apiService'
+import { Auth } from '../Setup'
+// import auth from '@react-native-firebase/auth'
+import { signUpUser, signInUser, signOutUser } from '../apiService'
 
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -26,23 +26,23 @@ export default ({ navigation }) => {
     emailAddress: '',
     password: '',
   })
-  const [initializing, setInitializing] = React.useState(true)
+  // const [initializing, setInitializing] = React.useState(true)
   const [user, setUser] = React.useState()
 
   function onAuthStateChanged(user) {
     setUser(user)
-    if (initializing) setInitializing(false)
+    // if (initializing) setInitializing(false)
   }
 
   React.useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    const subscriber = Auth().onAuthStateChanged(onAuthStateChanged)
     return subscriber // unsubscribe on unmount
   }, [])
 
-  if (initializing) return null
+  // if (initializing) return null
 
   const signUp = () => {
-    SignUpUser(state.emailAddress, state.password)
+    signUpUser(state.emailAddress, state.password)
       .then((data) => {
         alert(data)
       })
@@ -53,7 +53,7 @@ export default ({ navigation }) => {
   }
 
   const signIn = () => {
-    SignInUser(state.emailAddress, state.password)
+    signInUser(state.emailAddress, state.password)
       .then((data) => {
         alert(data)
       })
@@ -63,7 +63,7 @@ export default ({ navigation }) => {
   }
 
   const signOut = () => {
-    SignOutUser(state.emailAddress, state.password)
+    signOutUser(state.emailAddress, state.password)
       .then((data) => {
         alert(data)
       })
