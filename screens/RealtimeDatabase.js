@@ -19,22 +19,41 @@ import { database } from '../Setup'
 import { submitUser, queryUser, deleteAllUsersAPI, deleteUserAPI } from '../apiService'
 
 export default ({ navigation }) => {
-  const [id, setId] = React.useState()
+  const [id, setId] = React.useState(null)
   const [users, setUsers] = React.useState([])
-  const [name, setName] = React.useState()
-  const [position, setPosition] = React.useState()
+  const [name, setName] = React.useState('')
+  const [position, setPosition] = React.useState('')
 
   React.useEffect(() => {
     const userRef = database().ref('/users')
     const onLoadingListener = userRef.on('value', (snapshot) => {
       setUsers([])
       snapshot.forEach((childSnapshot) => {
-        // console.log('childSnapshot.val(): ', childSnapshot.val())
+        console.log('onLoadingListener: ', childSnapshot.val())
         setUsers((users) => [...users, childSnapshot.val()])
       })
     })
+
+    const childRemovedListener = userRef.on('child_removed', (snapshot) => {
+      console.log('child_removed: ', snapshot._snapshot.value)
+      alert('Child removed!')
+    })
+
+    const childChangedListener = userRef.on('child_changed', (snapshot) => {
+      console.log('child_changed: ', snapshot._snapshot.value)
+      alert('Child changed!')
+    })
+
+    // const childAddedListener = userRef.on('child_added', (snapshot) => {
+    //   console.log('child_added: ', snapshot._snapshot.value)
+    //   alert('Child added!')
+    // })
+
     return () => {
       userRef.off('value', onLoadingListener)
+      userRef.off('child_removed', childRemovedListener)
+      userRef.off('child_changed', childChangedListener)
+      // userRef.off('child_added', childAddedListener)
     }
   }, [])
 
@@ -44,7 +63,6 @@ export default ({ navigation }) => {
         setId(null)
         setName('')
         setPosition('')
-        alert(result)
       })
       .catch((err) => alert(err))
   }
@@ -52,18 +70,25 @@ export default ({ navigation }) => {
   const query = () => {
     queryUser()
       .then((result) => {
-        console.log(result)
+        // console.log(result)
         alert(JSON.stringify(result))
       })
       .catch((err) => alert(err))
   }
 
-  const editUser = (id) => {
-    alert(id)
+  const editUser = (id_of_edited_item) => {
+    users.map((user) => {
+      if (user.id === id_of_edited_item) {
+        setId(user.id)
+        setName(user.name)
+        setPosition(user.position)
+        return
+      }
+    })
   }
 
   const deleteUser = (user) => {
-    console.log('user: ', user)
+    // console.log('user: ', user)
     Alert.alert(
       `Are you sure about delete user ${user.name}?`,
       'This operations cant be undone',
@@ -81,7 +106,7 @@ export default ({ navigation }) => {
           text: 'OK',
           // onPress: () => console.log('OK Pressed'),
           onPress: () => {
-            deleteUserAPI(user.id) //.then(() => setUsers([]))
+            deleteUserAPI(user.id) //.then(() => alert(`${user.name} has been removed`))
           },
         },
       ],
@@ -162,7 +187,7 @@ export default ({ navigation }) => {
               </Text>
             </Body>
             <Right>
-              <Button transparent onPress={() => editUser('item')}>
+              <Button transparent onPress={() => editUser(item.id)}>
                 <Icon active name="create" />
               </Button>
               <Button transparent onPress={() => deleteUser(item)}>

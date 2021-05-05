@@ -27,7 +27,7 @@ export default ({ navigation }) => {
         </ListItem>
         <ListItem
           onPress={() => {
-            navigation.navigate('Auth')
+            navigation.navigate('CloudFirestore')
           }}
         >
           <Text>Cloud Firestore</Text>
@@ -37,15 +37,15 @@ export default ({ navigation }) => {
             navigation.navigate('Auth')
           }}
         >
-          <Text>Cloud storage</Text>
+          <Text>Cloud Storage</Text>
         </ListItem>
-        <ListItem
+        {/* <ListItem
           onPress={() => {
             navigation.navigate('Auth')
           }}
         >
           <Text>Admob</Text>
-        </ListItem>
+        </ListItem> */}
         <ListItem
           onPress={() => {
             navigation.navigate('Auth')

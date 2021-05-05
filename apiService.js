@@ -32,7 +32,7 @@ export const signInUser = (email, password) => {
       .then((userCredential) => {
         // Signed in
         console.log('userCredential.user: ', userCredential.user)
-        resolve('SignIn Sucessfully')
+        resolve(JSON.stringify(userCredential.user))
         // ...
       })
       .catch((error) => {

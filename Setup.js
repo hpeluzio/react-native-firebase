@@ -4,6 +4,7 @@ import App from './App'
 import firebase from '@react-native-firebase/app'
 import Auth from '@react-native-firebase/auth'
 import database from '@react-native-firebase/database'
+import firestore from '@react-native-firebase/firestore'
 
 // const firebaseConfig = {
 //   apiKey: 'AIzaSyAYaj2U78klybNpw-Sd053kgGlN7tbV3SI',
@@ -19,7 +20,7 @@ import database from '@react-native-firebase/database'
 //   firebase.initializeApp(firebaseConfig)
 // }
 
-export { firebase, Auth, database }
+export { firebase, Auth, database, firestore }
 
 const Setup = () => {
   return <App />
