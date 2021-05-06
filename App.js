@@ -6,6 +6,7 @@ import Home from './screens/Home'
 import Auth from './screens/Auth'
 import RealtimeDatabase from './screens/RealtimeDatabase'
 import CloudFirestore from './screens/CloudFirestore'
+import CloudStorage from './screens/CloudStorage'
 
 const Stack = createStackNavigator()
 
@@ -17,6 +18,7 @@ const App = () => {
         <Stack.Screen name="Auth" component={Auth} />
         <Stack.Screen name="RealtimeDatabase" component={RealtimeDatabase} />
         <Stack.Screen name="CloudFirestore" component={CloudFirestore} />
+        <Stack.Screen name="CloudStorage" component={CloudStorage} />
       </Stack.Navigator>
     </NavigationContainer>
     // <View style={styles.backgroundStyle}>

@@ -34,7 +34,7 @@ export default ({ navigation }) => {
         </ListItem>
         <ListItem
           onPress={() => {
-            navigation.navigate('Auth')
+            navigation.navigate('CloudStorage')
           }}
         >
           <Text>Cloud Storage</Text>
