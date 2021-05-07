@@ -32,9 +32,18 @@ const Setup = () => {
   React.useEffect(() => {
     OneSignal.setAppId('cfb3f8f7-1d1e-4c86-bd39-000f9bba1473')
     // OneSignal.init('cfb3f8f7-1d1e-4c86-bd39-000f9bba1473')
-    // console.log('OneSignal')
-    OneSignal.addSubscriptionObserver((event) => {
-      console.log('OneSignal: subscription changed:', event)
+    console.log('OneSignal')
+    // OneSignal.addSubscriptionObserver((event) => {
+    //   console.log('OneSignal: subscription changed:', event)
+    // })
+    // OneSignal.setInAppMessageClickHandler((event) => {
+    //   console.log('OneSignal IAM clicked:', event)
+    // })
+    OneSignal.setNotificationOpenedHandler((openedEvent) => {
+      console.log('OneSignal: notification opened:', openedEvent)
+      const { action, notification } = openedEvent
+      console.log('action:', action)
+      console.log('notification:', notification)
     })
   }, [])
 
